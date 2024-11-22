@@ -4,12 +4,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Category } from "@/types/category.types";
 import FormInput from "../shared/form-input";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useAppDispatch } from "@/redux/store";
 import { handleAddCategory } from "@/redux/features/incomeExpenseSlice";
+import { useRouter } from "next/navigation";
 
 const EditCategoryForm = () => {
+    const router = useRouter();
     const dispatch = useAppDispatch()
-    const categories = useAppSelector((state) => state.incomeExpense.categories)
     
     const {
         handleSubmit,
@@ -30,11 +31,10 @@ const EditCategoryForm = () => {
             id: Date.now()
         }
 
-        dispatch(handleAddCategory(newCategory))                
+        dispatch(handleAddCategory(newCategory))
+        router.back()                        
     }
 
-    console.log('categories', categories);    
-    
     return(
         <>
             <h2 className="mb-4 text-xl font-bold text-gray-800">Yeni Kategori Ekle</h2>
