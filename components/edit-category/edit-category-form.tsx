@@ -7,6 +7,7 @@ import FormInput from "../shared/form-input";
 import { useAppDispatch } from "@/redux/store";
 import { handleAddCategory } from "@/redux/features/incomeExpenseSlice";
 import { useRouter } from "next/navigation";
+import { getStorageItem, saveStorage } from "@/utils/storage-util";
 
 const EditCategoryForm = () => {
     const router = useRouter();
@@ -26,12 +27,16 @@ const EditCategoryForm = () => {
     })
     
     const onSubmit: SubmitHandler<Category> = (values: Category) => {
+        const categories = getStorageItem("categories")
+
         const newCategory = {
             ...values,
             id: Date.now()
         }
-
+        
         dispatch(handleAddCategory(newCategory))
+        categories.push(newCategory)
+        saveStorage("categories", categories);
         router.back()                        
     }
 

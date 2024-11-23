@@ -16,10 +16,13 @@ export const incomeExpenseSlice = createSlice({
     initialState,
     reducers: {
         handleAddCategory: (state, action: PayloadAction<Category>) => {
-            state.categories.push(action.payload)
+            state.categories.push(action.payload)            
+        },
+        setCategories: (state, action: PayloadAction<Category[]>) => {
+            state.categories = action.payload
         }
     }
 })
 
-export const { handleAddCategory } = incomeExpenseSlice.actions
+export const { handleAddCategory, setCategories } = incomeExpenseSlice.actions
 export const incomeExpenseReducer = incomeExpenseSlice.reducer;

@@ -12,7 +12,6 @@ interface DataTableProps {
 
 
 const DataTable = ({ columns, rows, tableContainerClass }: DataTableProps) => {
-    console.log('rows', rows);
     
   return (
     <div className={`relative overflow-x-auto rounded-2xl ${tableContainerClass}`}>
@@ -28,9 +27,7 @@ const DataTable = ({ columns, rows, tableContainerClass }: DataTableProps) => {
           </tr>
         </thead>
         <tbody>
-            {rows?.map((item, index) => {
-                console.log('item', item);
-                
+            {rows?.map((item) => {                           
                 return(         
                 <tr key={item?.id} className="odd:bg-white even:bg-gray-50 border-b hover:bg-gray-100">
                     {
