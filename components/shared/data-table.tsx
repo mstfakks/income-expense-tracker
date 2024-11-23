@@ -1,56 +1,55 @@
-
 export interface Column {
-    id: string;
-    headerName: string,
+  id: string;
+  headerName: string;
 }
 
 interface DataTableProps {
-    columns: Column[];
-    rows: any[];
-    tableContainerClass?: string
+  columns: Column[];
+  rows: any[];
+  tableContainerClass?: string;
+  editClick?: (id?: number) => void;
+  removeClick?: () => void;
 }
 
-
-const DataTable = ({ columns, rows, tableContainerClass }: DataTableProps) => {
-    
+const DataTable = ({ columns, rows, tableContainerClass, editClick, removeClick }: DataTableProps) => {
   return (
-    <div className={`relative overflow-x-auto rounded-2xl ${tableContainerClass}`}>
+    <div
+      className={`relative overflow-x-auto rounded-2xl ${tableContainerClass}`}
+    >
       <table className="table-auto w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
             {columns.map((item) => (
-                <th key={item.id} scope="col" className="px-6 py-3">
-                    {item.headerName}
+              <th key={item.id} scope="col" className="px-6 py-3">
+                {item.headerName}
               </th>
             ))}
-                        
+            <th scope="col" className="px-6 py-3">İşlemler</th>
           </tr>
         </thead>
         <tbody>
-            {rows?.map((item) => {                           
-                return(         
-                <tr key={item?.id} className="odd:bg-white even:bg-gray-50 border-b hover:bg-gray-100">
-                    {
-                        columns?.map((col) => (
-                            <td key={col.id} className="px-6 py-4">{item[col.id]}</td>
-                        ))
-                    }
-                    {/* <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                    >
-                        {item[columns[index]['id']]}
-                    </th>
-                    <td className="px-6 py-4">Faturalar</td>
-                    <td className="px-6 py-4">1000</td> */}
-                </tr>
-            )}
-            )}
-          
+          {rows?.map((item) => {
+            return (
+              <tr
+                key={item?.id}
+                className="odd:bg-white even:bg-gray-50 border-b hover:bg-gray-100"
+              >
+                {columns?.map((col) => (
+                  <td key={col.id} className="px-6 py-4">
+                    {item[col.id]}
+                  </td>
+                ))}
+                <td className="px-6 py-4 flex items-center">
+                  {editClick && <a onClick={() => editClick(item?.id)} className="font-medium text-blue-600 hover:underline hover:cursor-pointer">Düzenle</a>}
+                  <a onClick={removeClick} className="font-medium text-red-600 hover:underline ms-3 hover:cursor-pointer">Sil</a>
+                </td>               
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default DataTable
+export default DataTable;

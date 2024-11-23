@@ -1,35 +1,47 @@
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import DataTable, { Column } from "../shared/data-table";
 import { useEffect } from "react";
-import { getStorageItem, saveStorage } from "@/utils/storage-util";
+import { getStorageItem } from "@/utils/storage-util";
 import { setCategories } from "@/redux/features/incomeExpenseSlice";
 import { Category } from "@/types/category.types";
-
-const columns: Column[] = [
-  {
-    id: "name",
-    headerName: "İsim",
-  },
-  {
-    id: "description",
-    headerName: "Açıklama",
-  },
-  {
-    id: "limit",
-    headerName: "Harcama Limiti",
-  },
-];
+import { useRouter } from "next/navigation";
 
 const CategoryTable = () => {
-    const categories = useAppSelector((state) => state.incomeExpense.categories)
-    const dispatch = useAppDispatch()
+  const router = useRouter();
+  const categories = useAppSelector((state) => state.incomeExpense.categories);
+  const dispatch = useAppDispatch();
+  
+  useEffect(() => {
+    const categories: Category[] = getStorageItem("categories");
+    dispatch(setCategories(categories));
+  }, []);
 
-    useEffect(() => {
-        const categories: Category[] = getStorageItem("categories")
-        dispatch(setCategories(categories))
-    }, [])
+  const columns: Column[] = [
+    {
+      id: "name",
+      headerName: "İsim",
+    },
+    {
+      id: "description",
+      headerName: "Açıklama",
+    },
+    {
+      id: "limit",
+      headerName: "Harcama Limiti",
+    },
+  ];
 
-    return <DataTable columns={columns} rows={categories} />;
+  const handleEditClick = (id?: number) => {
+    router.push(`/categories/${id}`);
+  };
+
+  return (
+    <DataTable
+      columns={columns}
+      rows={categories}
+      editClick={handleEditClick}
+    />
+  );
 };
 
 export default CategoryTable;
