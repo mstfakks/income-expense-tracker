@@ -10,8 +10,6 @@ export interface IncomeExpense {
     description?: string;
     amount:number | string;
     date?: Date | String;
-    category: {
-        id: number,
-        name: string
-    } | string;
+    categoryId?: number | string;
+    categoryName?: string    
 }

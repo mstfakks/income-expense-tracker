@@ -1,15 +1,18 @@
 import { Category } from "@/types/category.types";
+import { IncomeExpense } from "@/types/income-expense.types";
 import { saveStorage } from "@/utils/storage-util";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 
-interface IncomeExpense {
-    categories: Category[]
+interface IncomeExpenseSlice {
+    categories: Category[],
+    incomeExpenseList: IncomeExpense[]
 }
 
-const initialState: IncomeExpense = {
-    categories: []
+const initialState: IncomeExpenseSlice = {
+    categories: [],
+    incomeExpenseList: []
 }
 
 export const incomeExpenseSlice = createSlice({
@@ -35,9 +38,37 @@ export const incomeExpenseSlice = createSlice({
                         
             state.categories = updatedCategories
             saveStorage("categories", state.categories)
+        },
+        
+        handleAddIncomeExpense: (state, action: PayloadAction<IncomeExpense[]>) => {
+            state.incomeExpenseList = [...state.incomeExpenseList, ...action.payload]
+            saveStorage("incomesExpenses", state.incomeExpenseList)          
+        },
+        setIncomeExpense: (state, action: PayloadAction<IncomeExpense[]>) => {
+            state.incomeExpenseList = action.payload
+        },
+        handleUpdateIncomeExpense: (state, action: PayloadAction<IncomeExpense>) => {
+            const updatedIncomeExpense = state.incomeExpenseList.map((item) => {
+                if(item.id === action.payload.id) {
+                    return {
+                        ...action.payload
+                    }
+                }
+                return item
+            })
+            state.incomeExpenseList = updatedIncomeExpense
+            saveStorage("incomesExpenses", state.incomeExpenseList)
         }
     }
 })
 
-export const { handleAddCategory, setCategories, handleUpdateCategory } = incomeExpenseSlice.actions
+export const { 
+    handleAddCategory, 
+    setCategories, 
+    handleUpdateCategory,
+    handleAddIncomeExpense,
+    setIncomeExpense,
+    handleUpdateIncomeExpense 
+} = incomeExpenseSlice.actions
+
 export const incomeExpenseReducer = incomeExpenseSlice.reducer;

@@ -1,4 +1,4 @@
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import FormInput from "../shared/form-input";
 import SelectInput, { Option } from "../shared/select-input";
 import DateInput from "../shared/date-input";
@@ -10,13 +10,16 @@ import MainButton from "../shared/main-button";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useEffect, useMemo } from "react";
 import { getStorageItem } from "@/utils/storage-util";
-import { setCategories } from "@/redux/features/incomeExpenseSlice";
+import { handleAddIncomeExpense, handleUpdateIncomeExpense, setCategories } from "@/redux/features/incomeExpenseSlice";
 import { Category } from "@/types/category.types";
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 const defaultValues = {
   amount: "",
-  category: "",
+  categoryId: "",
   date: "",
   description: "",
   type: "",
@@ -35,8 +38,10 @@ const typeOptions: Option[] = [
 
 const EditIncomeExpenseForm = () => {
   const { id } = useParams<{ id: string }>();
+  const router = useRouter()
   const dispatch = useAppDispatch();
-  const categories = useAppSelector(state => state.incomeExpense.categories)
+  const { categories, incomeExpenseList } = useAppSelector(state => state.incomeExpense)
+  
 
   useEffect(() => {
     const categories: Category[] = getStorageItem("categories");
@@ -59,17 +64,57 @@ const EditIncomeExpenseForm = () => {
     register,
     setValue,
     control,
+    getValues,
     formState: { errors, isValid, isSubmitting },
   } = useForm<IncomeExpense>({
     defaultValues,
     resolver: zodResolver(incomeExpenseSchema),
   });
 
-  console.log('errors', errors);
-
   const onSubmit: SubmitHandler<IncomeExpense> = (values) => {
     console.log("values", values);
+    const foundCategory = categories.find((item) => item.id === Number(values.categoryId))
+    
+    if(Number(id) !== 0) {
+        const updateIncomeExpense = {
+            ...values,
+            categoryName: foundCategory?.name,
+            date: dayjs(values?.date as string).format('DD/MM/YYYY'),
+            id: Number(id)      
+        } 
+        dispatch(handleUpdateIncomeExpense(updateIncomeExpense))
+    } else {
+        const newIncomeExpense = {
+            ...values,
+            categoryName: foundCategory?.name,            
+            date: dayjs(values?.date as string).format('DD/MM/YYYY'),
+            id: Date.now()      
+        }        
+        
+        dispatch(handleAddIncomeExpense([newIncomeExpense]))
+    }
+
+    router.back();
   };
+
+  useEffect(() => {
+    if(id && id != '0'){
+        const foundIncomeExpense = incomeExpenseList.find((item) => item.id === Number(id));
+        console.log('foundIncomeExpense', foundIncomeExpense);
+        
+        if(foundIncomeExpense){
+            const date = dayjs(foundIncomeExpense.date as string, 'DD/MM/YYYY').format('YYYY-MM-DD')
+            setValue("amount", foundIncomeExpense?.amount)
+            setValue("categoryId", foundIncomeExpense?.categoryId)
+            setValue("type", foundIncomeExpense?.type)
+            setValue("description", foundIncomeExpense?.description)
+            setValue("date", date)
+        }     
+    }
+  }, [id])
+
+  console.log('date', getValues('date'));
+  
 
   return (
     <>
@@ -103,7 +148,7 @@ const EditIncomeExpenseForm = () => {
           <SelectInput 
             label="Kategori seçiniz" 
             options={formattedCategories}
-            name="category"
+            name="categoryId"
             errors={errors}
             register={register} 
             />

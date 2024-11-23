@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import z from "zod";
 
 export const incomeExpenseSchema = z.object({
@@ -8,5 +9,5 @@ export const incomeExpenseSchema = z.object({
         return Number(value)
     }, z.number({required_error: 'Miktar alanı zorunludur!'})),
     date: z.string().min(1, {message: 'Tarih alanı zorunludur!'}),
-    category: z.string().min(1, {message: "Kategori alanı zorunludur!"}) 
+    categoryId: z.string().min(1, {message: "Kategori alanı zorunludur!"}) 
 })

@@ -35,7 +35,7 @@ const DateInput = ({
       <Controller
         name={name}
         control={control}
-        defaultValue={" "}        
+        defaultValue={""}        
         render={({ field }) => (
           <input
             {...field}
