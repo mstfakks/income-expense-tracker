@@ -6,6 +6,21 @@ import { setCategories } from "@/redux/features/incomeExpenseSlice";
 import { Category } from "@/types/category.types";
 import { useRouter } from "next/navigation";
 
+const columns: Column[] = [
+  {
+    id: "name",
+    headerName: "İsim",
+  },
+  {
+    id: "description",
+    headerName: "Açıklama",
+  },
+  {
+    id: "limit",
+    headerName: "Harcama Limiti",
+  },
+];
+
 const CategoryTable = () => {
   const router = useRouter();
   const categories = useAppSelector((state) => state.incomeExpense.categories);
@@ -16,20 +31,6 @@ const CategoryTable = () => {
     dispatch(setCategories(categories));
   }, []);
 
-  const columns: Column[] = [
-    {
-      id: "name",
-      headerName: "İsim",
-    },
-    {
-      id: "description",
-      headerName: "Açıklama",
-    },
-    {
-      id: "limit",
-      headerName: "Harcama Limiti",
-    },
-  ];
 
   const handleEditClick = (id?: number) => {
     router.push(`/categories/${id}`);

@@ -7,7 +7,6 @@ import FormInput from "../shared/form-input";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { handleAddCategory, handleUpdateCategory } from "@/redux/features/incomeExpenseSlice";
 import { useParams, useRouter } from "next/navigation";
-import { getStorageItem, saveStorage } from "@/utils/storage-util";
 import { useEffect } from "react";
 
 const EditCategoryForm = () => {
@@ -32,13 +31,11 @@ const EditCategoryForm = () => {
   });
 
   const onSubmit: SubmitHandler<Category> = (values: Category) => {
-    console.log("values", values);
     if (Number(id) !== 0) {
       //Güncelleme
       const updatedValues = {...values, id: Number(id)}
       dispatch(handleUpdateCategory(updatedValues))
     } else {
-      //const categories = getStorageItem("categories");
 
       const newCategory = {
         ...values,
@@ -46,8 +43,6 @@ const EditCategoryForm = () => {
       };
 
       dispatch(handleAddCategory([newCategory]));
-      //categories.push(newCategory);
-      //saveStorage("categories", categories);      
     }
     router.back();
   };

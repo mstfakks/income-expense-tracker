@@ -1,4 +1,3 @@
-import { DeepMap, FieldError, FieldValues, Path, UseFormRegister } from "react-hook-form";
 
 interface FormInputProps {
     name: string;
