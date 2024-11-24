@@ -36,51 +36,54 @@ const IncomeExpenseCardField = () => {
   }, [incomeExpenseList]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-4">
-      <IncomeExpenseCard
-        title="Toplam Gelir"
-        amount={prices.totalIncome || 0}
-        additionalClass="bg-green-50"
-        cardIcon={
-            <Image
-              src={"/income.svg"}
-              alt="income-money"
-              priority
-              width={60}
-              height={60}
-            />
-          }
-      />
+    <>
+      <h2 className="text-3xl font-bold mb-5 mt-10">Harcama Özeti</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-4">
+        <IncomeExpenseCard
+          title="Toplam Gelir"
+          amount={prices.totalIncome || 0}
+          additionalClass="bg-green-50"
+          cardIcon={
+              <Image
+                src={"/income.svg"}
+                alt="income-money"
+                priority
+                width={60}
+                height={60}
+              />
+            }
+        />
 
-      <IncomeExpenseCard
-        title="Toplam Gider"
-        amount={prices.totalExpense || 0}
-        additionalClass="bg-red-50"
-        cardIcon={
+        <IncomeExpenseCard
+          title="Toplam Gider"
+          amount={prices.totalExpense || 0}
+          additionalClass="bg-red-50"
+          cardIcon={
+              <Image
+                src={"/expense.svg"}
+                alt="expense-money"
+                priority
+                width={60}
+                height={60}
+              />
+            }
+        />
+        <IncomeExpenseCard
+          title="Kalan Para"
+          amount={prices.remainAmount || 0}
+          additionalClass="bg-green-50"
+          cardIcon={
             <Image
-              src={"/expense.svg"}
-              alt="expense-money"
+              src={"/remain.svg"}
+              alt="remain-money"
               priority
               width={60}
               height={60}
             />
           }
-      />
-      <IncomeExpenseCard
-        title="Kalan Para"
-        amount={prices.remainAmount || 0}
-        additionalClass="bg-green-50"
-        cardIcon={
-          <Image
-            src={"/remain.svg"}
-            alt="remain-money"
-            priority
-            width={60}
-            height={60}
-          />
-        }
-      />
-    </div>
+        />
+      </div>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import IncomeExpenseCardField from "@/components/home/income-expense-card-field";
+import WarningField from "@/components/home/warning-field";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
 
       <div className="mt-7">
         <IncomeExpenseCardField />
+        <WarningField />
       </div>
     </>
   );
