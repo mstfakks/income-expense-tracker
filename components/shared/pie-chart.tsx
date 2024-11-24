@@ -19,17 +19,18 @@ interface PieChartProps {
 
 const PieChart = ({data}: PieChartProps) => {
 
-    const options = {
-        plugins: {
-            colors: {
-                forceOverride: true
-            }
-        }
-    }
 
   return (
     <>
-      <Pie data={data} options={options} />
+      <Pie data={data} options={{        
+        responsive: true,
+        plugins: {
+          colors: {
+              forceOverride: true
+          }
+        },        
+
+      }} />
     </>
   );
 };
