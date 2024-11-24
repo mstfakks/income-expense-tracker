@@ -64,7 +64,7 @@ const EditIncomeExpenseForm = () => {
     register,
     setValue,
     control,
-    getValues,
+    reset,
     formState: { errors, isValid, isSubmitting },
   } = useForm<IncomeExpense>({
     defaultValues,
@@ -93,7 +93,7 @@ const EditIncomeExpenseForm = () => {
         
         dispatch(handleAddIncomeExpense([newIncomeExpense]))
     }
-
+    reset()
     router.back();
   };
 
@@ -112,9 +112,6 @@ const EditIncomeExpenseForm = () => {
         }     
     }
   }, [id])
-
-  console.log('date', getValues('date'));
-  
 
   return (
     <>
