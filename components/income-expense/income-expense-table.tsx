@@ -119,7 +119,7 @@ const IncomeExpenseTable = () => {
         </div>
         <MainButton
           onClick={onFilter}
-          additionalClassName="text-sm px-3 border-opacity-0  hover:border-opacity-100 hover:text-black flex-grow sm:flex-grow-0 w-full sm:w-24"
+          additionalClassName="text-sm px-3 hover:text-black flex-grow sm:flex-grow-0 w-full sm:w-24"
         >
           Filtrele
         </MainButton>
