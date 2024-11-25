@@ -14,7 +14,7 @@ const EditCategory = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <p className="text-4xl">Edit Category</p>
+        <p className="text-4xl">Kategori Düzenle</p>
         <MainButton additionalClassName="hover:shadow-xl" onClick={handleBack}>
           Geri
         </MainButton>

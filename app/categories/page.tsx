@@ -13,12 +13,12 @@ const CategoriesPage = () => {
     return (
     <>
       <div className="flex items-center justify-between">
-        <p className="text-4xl">Categories</p>
+        <p className="text-4xl">Kategoriler</p>
         <MainButton 
             additionalClassName="hover:shadow-xl"
             onClick={handleAdd}
         >
-            Add
+            Ekle
         </MainButton>
       </div>
 

@@ -40,6 +40,7 @@ export const incomeExpenseSlice = createSlice({
             saveStorage("categories", state.categories)
         },
         
+        
         handleAddIncomeExpense: (state, action: PayloadAction<IncomeExpense[]>) => {
             state.incomeExpenseList = [...state.incomeExpenseList, ...action.payload]
             saveStorage("incomesExpenses", state.incomeExpenseList)          
@@ -58,7 +59,13 @@ export const incomeExpenseSlice = createSlice({
             })
             state.incomeExpenseList = updatedIncomeExpense
             saveStorage("incomesExpenses", state.incomeExpenseList)
+        },
+        handleDeleteIncomeExpense: (state, action:PayloadAction<number>) => {
+            const filteredIncomeExpense = state.incomeExpenseList.filter((item) => item.id !== action.payload)
+            state.incomeExpenseList = filteredIncomeExpense
+            saveStorage("incomesExpenses", state.incomeExpenseList)
         }
+
     }
 })
 
@@ -68,7 +75,8 @@ export const {
     handleUpdateCategory,
     handleAddIncomeExpense,
     setIncomeExpense,
-    handleUpdateIncomeExpense 
+    handleUpdateIncomeExpense,
+    handleDeleteIncomeExpense 
 } = incomeExpenseSlice.actions
 
 export const incomeExpenseReducer = incomeExpenseSlice.reducer;

@@ -8,7 +8,7 @@ interface DataTableProps {
   rows: any[];
   tableContainerClass?: string;
   editClick?: (id?: number) => void;
-  removeClick?: () => void;
+  removeClick?: (id?: number) => void;
 }
 
 const DataTable = ({ columns, rows, tableContainerClass, editClick, removeClick }: DataTableProps) => {
@@ -41,7 +41,7 @@ const DataTable = ({ columns, rows, tableContainerClass, editClick, removeClick 
                 ))}
                 <td className="px-6 py-4 flex items-center">
                   {editClick && <a onClick={() => editClick(item?.id)} className="font-medium text-blue-600 hover:underline hover:cursor-pointer">Düzenle</a>}
-                  <a onClick={removeClick} className="font-medium text-red-600 hover:underline ms-3 hover:cursor-pointer">Sil</a>
+                  {removeClick && <a onClick={() => removeClick(item?.id)} className="font-medium text-red-600 hover:underline ms-3 hover:cursor-pointer">Sil</a>}
                 </td>               
               </tr>
             );
