@@ -1,4 +1,10 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Income Expense Tracker
+
+A modern and user-friendly income expense tracking application.
+
+## About Project  
+This project is developed using the Next.js framework.
+Its goal is to provide users with an easy and efficient way to manage their budget
 
 ## Getting Started
 

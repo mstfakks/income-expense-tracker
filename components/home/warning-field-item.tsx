@@ -14,7 +14,7 @@ const WarningFieldItem = ({ message }: WarningFieldItemProps) => {
         width={60}
         height={60}
       />
-      <p className="font-semibold text-lg">
+      <p className="font-semibold text-sm sm:text-lg">
         {message}
       </p>
     </div>
