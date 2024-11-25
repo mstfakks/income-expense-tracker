@@ -14,7 +14,7 @@ interface DataTableProps {
 const DataTable = ({ columns, rows, tableContainerClass, editClick, removeClick }: DataTableProps) => {
   return (
     <div
-      className={`relative overflow-x-auto rounded-2xl ${tableContainerClass}`}
+      className={`overflow-x-auto rounded-2xl ${tableContainerClass}`}
     >
       <table className="table-auto w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
