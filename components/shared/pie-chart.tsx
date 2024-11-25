@@ -22,13 +22,19 @@ const PieChart = ({data}: PieChartProps) => {
 
   return (
     <>
-      <Pie data={data} options={{        
+      <Pie data={data} options={{ 
+        maintainAspectRatio: false,       
         responsive: true,
+       
         plugins: {
           colors: {
-              forceOverride: true
+            forceOverride: true
+          },
+          legend: {
+            position: 'bottom'
           }
-        },        
+        }, 
+              
 
       }} />
     </>

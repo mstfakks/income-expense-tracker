@@ -12,7 +12,7 @@ const ChartCard = ({data, label}: ChartCardProps) => {
 
       <div className="border border-gray-200 w-full p-0" />
 
-      <div className="flex w-[60%] mt-2 pb-4 min-w-0">
+      <div className="flex w-full h-60 sm:h-80 mt-2 pb-4 min-w-0">
         <PieChart data={data} />
       </div>
     </div>

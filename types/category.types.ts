@@ -4,4 +4,5 @@ export interface Category {
     name: string;
     limit: number;
     description: string;
+    categoryTotalExpense?: number;
 }
