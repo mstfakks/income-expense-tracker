@@ -17,9 +17,6 @@ const WarningField = () => {
         dispatch(setCategories(categories));
     }, []);
     
-    console.log('incomeExpense', incomeExpenseList);
-    console.log('categories', categories);
-
     const warnData = useMemo(() => {
         const expenseList = incomeExpenseList.filter((item) => item.type === IncomeExpenseType.EXPENSE)
         return categories.map((item) => {

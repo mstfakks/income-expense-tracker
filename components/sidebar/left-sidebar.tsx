@@ -33,9 +33,6 @@ const LeftSidebar = () => {
   const dispatch = useAppDispatch()
   const path = usePathname()
 
-  console.log('path', path);
-  
-
   const handleClick = (url: string) => {
     router.push(url);
     dispatch(handleToggleDrawer(false))
@@ -52,7 +49,16 @@ const LeftSidebar = () => {
           <li className="p-2 block w-full" key={item.id}>
             <MainButton
               onClick={() => handleClick(item.url)}
-              additionalClassName={`text-lg border-opacity-0 w-full hover:border-opacity-100 transition-colors hover:border-white hover:shadow-md hover:shadow-white ${item.url === path && 'border-white shadow-md shadow-white border-opacity-100'}`}
+              additionalClassName={`
+                text-lg 
+                border-opacity-0 
+                w-full 
+                hover:border-opacity-100 
+                transition-colors 
+                hover:border-white 
+                hover:shadow-md 
+                hover:shadow-white 
+                ${item.url === path && 'border-white shadow-md shadow-white border-opacity-100'}`}
             >
               {item.pageName}
             </MainButton>

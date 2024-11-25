@@ -5,7 +5,6 @@ import ChartCard from "../shared/chart-card";
 
 const IncomePieChart = () => {
   const { incomeExpenseList } = useAppSelector((state) => state.incomeExpense);
-  console.log("incomeExpenseList", incomeExpenseList);
   const incomeList = incomeExpenseList.filter(
     (item) => item.type === IncomeExpenseType.INCOME
   );

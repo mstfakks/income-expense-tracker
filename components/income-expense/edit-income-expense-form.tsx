@@ -72,7 +72,6 @@ const EditIncomeExpenseForm = () => {
   });
 
   const onSubmit: SubmitHandler<IncomeExpense> = (values) => {
-    console.log("values", values);
     const foundCategory = categories.find((item) => item.id === Number(values.categoryId))
     
     if(Number(id) !== 0) {
@@ -100,7 +99,6 @@ const EditIncomeExpenseForm = () => {
   useEffect(() => {
     if(id && id != '0'){
         const foundIncomeExpense = incomeExpenseList.find((item) => item.id === Number(id));
-        console.log('foundIncomeExpense', foundIncomeExpense);
         
         if(foundIncomeExpense){
             const date = dayjs(foundIncomeExpense.date as string, 'DD/MM/YYYY').format('YYYY-MM-DD')

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { IncomeExpense } from "@/types/income-expense.types";
 import { getStorageItem } from "@/utils/storage-util";
-import { setIncomeExpense } from "@/redux/features/incomeExpenseSlice";
+import { handleDeleteIncomeExpense, setIncomeExpense } from "@/redux/features/incomeExpenseSlice";
 import MainButton from "../shared/main-button";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
@@ -48,26 +48,23 @@ const IncomeExpenseTable = () => {
 
   useEffect(() => {
     const incomesExpenses: IncomeExpense[] = getStorageItem("incomesExpenses");
-    dispatch(setIncomeExpense(incomesExpenses));
-    //onFilter()
+    dispatch(setIncomeExpense(incomesExpenses));    
   }, []);
 
   const handleEditClick = (id?: number) => {
     router.push(`/income-expense/${id}`);
   };
 
+  const handleDeleteClick = (id?:number) => {
+    dispatch(handleDeleteIncomeExpense(id ? id : 0))    
+  } 
+
   const onFilter = () => {
     const start = dayjs(startDate).format("YYYY-MM-DD");
     const finish = dayjs(finishDate).format("YYYY-MM-DD");
-
-    console.log("start", start);
-    console.log("finish", finish);
-
     const filteredIncomeExpense = incomeExpenses.filter((item) => {
-      console.log("item.date", item.date);
       if (item.date) {
         const date = dayjs(item.date as string, "DD/MM/YYYY", true).format("YYYY-MM-DD");
-        console.log("formatDate", date);
         if (dayjs(date).isBetween(start, finish, null, "[]")) {
           return item;
         }
@@ -79,10 +76,6 @@ const IncomeExpenseTable = () => {
   useEffect(() => {
     onFilter();
   }, [incomeExpenses])
-
-  console.log("incomeExpense", incomeExpenses);
-
-  
 
   return (
     <div className="p-4">
@@ -129,6 +122,7 @@ const IncomeExpenseTable = () => {
           columns={columns}
           rows={filteredData}
           editClick={handleEditClick}
+          removeClick={handleDeleteClick}
         />
       </div>
     </div>

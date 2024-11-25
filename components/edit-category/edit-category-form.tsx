@@ -50,7 +50,6 @@ const EditCategoryForm = () => {
   useEffect(() => {
     if (id && id != "0") {
       const foundCategory = categories.find((item) => item.id === Number(id));
-      console.log("foundCategory", foundCategory);
       if (foundCategory) {        
         setValue("name", foundCategory?.name);
         setValue("limit", foundCategory?.limit);
